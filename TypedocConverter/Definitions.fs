@@ -13,6 +13,7 @@ type Config = {
     ArrayType: string
     NrtDisabled: bool
     UseSystemJson: bool
+    DisabledJsonProperty: bool
 }
 
 type ReflectionKind = 

@@ -307,8 +307,9 @@ let printEntity (writer: System.IO.TextWriter) (config: Config) (references: str
         let isPrivate = modifiers |> List.contains "private"
         if isPrivate then ()
         else
-            if config.UseSystemJson then fprintfn writer "        [System.Text.Json.Serialization.JsonPropertyName(\"%s\")]" name
-            else fprintfn writer "        [Newtonsoft.Json.JsonProperty(\"%s\", NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]" name
+            if config.DisabledJsonProperty = false then
+                if config.UseSystemJson then fprintfn writer "        [System.Text.Json.Serialization.JsonPropertyName(\"%s\")]" name
+                else fprintfn writer "        [Newtonsoft.Json.JsonProperty(\"%s\", NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]" name
         fprintfn writer "        %s%s%s %s { %s%s}%s"
             (
                 if List.isEmpty modifiers then 
